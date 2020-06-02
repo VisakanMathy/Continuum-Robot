@@ -16,7 +16,7 @@ private:
     int _sections = 3;
     Adafruit_PWMServoDriver pwm;
     double _cardTuner = 0.5;
-    double _sectionTuner = 0.5;
+    double _sectionTuner = 0;
 
 public:
     Continuum(int startAngle);

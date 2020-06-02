@@ -22,7 +22,6 @@ Continuum::Continuum(int startAngle, int sections)
 }
 void Continuum::pwmSetup()
 {
-
     pwm.begin();
     pwm.setOscillatorFrequency(27000000);
     pwm.setPWMFreq(_SERVO_FREQ);
@@ -47,11 +46,11 @@ void Continuum::setSectionTuner(double sectionTuner)
 double Continuum::pulseLength(double angle) { return constrain(map(angle, 0, 180, _SERVOMIN, _SERVOMAX), _SERVOMIN, _SERVOMAX); }
 void Continuum::startPull()
 {
-    Serial.print("{");
+    Serial.println("{");
     for (int i = 0; i < _sections * 4; i++)
     {
         Serial.print(_angleArray[i]);
-        Serial.print(",\t");
+        Serial.print("\t");
         pwm.setPWM(i, 0, pulseLength(_angleArray[i]));
     }
     Serial.println("}");
@@ -60,9 +59,9 @@ void Continuum::pullIncrement(int section, double incrementAngle, int card)
 {
     for (int i = 0; i < section - 1; i++)
     {
-        _angleArray[4 * i + card] += incrementAngle * _sectionTuner;
-        // _angleArray[4 * i + ((card + 3) % 4)] += _cardTuner * (incrementAngle * _sectionTuner);
-        // _angleArray[4 * i + ((card + 1) % 4)] += _cardTuner * (incrementAngle * _sectionTuner);
+        _angleArray[4 * i + card] += incrementAngle;
+        _angleArray[4 * i + ((card + 3) % 4)] += _cardTuner * (incrementAngle * _sectionTuner);
+        _angleArray[4 * i + ((card + 1) % 4)] += _cardTuner * (incrementAngle * _sectionTuner);
     }
     for (int i = section - 1; i < _sections; i++)
     {
@@ -98,8 +97,8 @@ void Continuum::easyPull(int section, int incrementAngle, int card)
     }
     else
     {
-        _angleArray[4 * (section - 1) + (card / 90)] += (1 - tan(angle) / (1 + tan(angle))) * incrementAngle + _cardTuner * (tan(angle) / (1 + tan(angle))) * incrementAngle;
-        _angleArray[4 * (section - 1) + ((card / 90 + 1) % 4)] += (tan(angle) / (1 + tan(angle))) * incrementAngle + _cardTuner * (1 - tan(angle) / (1 + tan(angle))) * incrementAngle;
+        _angleArray[4 * (section - 1) + (card / 90)] += incrementAngle * (tan(angle) + 2 * (180 / incrementAngle) - 2) / 1 + tan(angle);
+        _angleArray[4 * (section - 1) + ((card / 90 + 1) % 4)] += incrementAngle * (2 * (180 / incrementAngle) - 1 - (tan(angle) + 2 * (180 / incrementAngle) - 2) / 1 + tan(angle));
     }
     startPull();
 }
