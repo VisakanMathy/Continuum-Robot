@@ -25,11 +25,6 @@ Begin by installing the Continuum library and the [Adafruit_PWMServoDriver](http
 
 
 
-## Core.ino comparison figures
-
-### Figure 1
-![hero](https://user-images.githubusercontent.com/32844998/83635955-02952a00-a59d-11ea-9041-596c9f44990b.png  | width=300)
-
 
 
 
