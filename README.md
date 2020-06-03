@@ -3,7 +3,7 @@
 The purpose of this repository is to create an open source continuum robot and control system that is accesible using low cost components and 3D printers. It includes a list of SolidWorks part files and a basic arduino library with examples for controls.
 
 ## Using the CAD
-Begin by downloading and extracting the [part files and assemblies](Continuum Robot Design) to a desired location and then open up the file. You can now edit the [equationsAll.txt](Continuum Robot Design/equationsAll.txt) file and explore changing parameters. Some key parameters are indicated in the following table:
+Begin by downloading and extracting the [part files and assemblies](ContinuumRobotDesign) to a desired location and then open up the file. You can now edit the [equationsAll.txt](ContinuumRobotDesign/equationsAll.txt) file and explore changing parameters. Some key parameters are indicated in the following table:
 
 Parameter | Orginal Value
 ------------ | -------------
